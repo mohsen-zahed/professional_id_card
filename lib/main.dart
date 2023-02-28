@@ -44,10 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Professional ID Card'),
         actions: const [
-          Icon(Icons.bubble_chart_outlined),
-          SizedBox(width: 10),
-          Icon(Icons.more_vert_rounded),
-          SizedBox(width: 15),
+           Icon(Icons.bubble_chart_outlined),
+           SizedBox(width: 10),
+           Icon(Icons.more_vert_rounded),
+           SizedBox(width: 15),
         ],
         elevation: 0,
       ),
