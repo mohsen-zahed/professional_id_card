@@ -6,23 +6,65 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode themeMode = ThemeMode.dark;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.dark,
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          border: InputBorder.none,
-        ),
+      theme: themeMode == ThemeMode.dark
+          ? ThemeConfig.dark().getTheme()
+          : ThemeConfig.light().getTheme(),
+      home: MyHomePage(
+        toggleTheme: () {
+          setState(() {
+            if (themeMode == ThemeMode.dark) {
+              themeMode = ThemeMode.light;
+              print('object');
+            } else {
+              themeMode = ThemeMode.dark;
+              print('object');
+            }
+          });
+        },
       ),
-      home: const MyHomePage(),
+    );
+  }
+}
+
+class ThemeConfig {
+  final Color primaryColor;
+  final Color secondaryColor;
+  final MaterialStateProperty elevatedButtonColor;
+  final Brightness brightness;
+  ThemeConfig.dark()
+      : brightness = Brightness.dark,
+        primaryColor = Colors.white,
+        elevatedButtonColor = MaterialStateProperty.all(Colors.pink[400]),
+        secondaryColor = Colors.white60;
+
+  ThemeConfig.light()
+      : brightness = Brightness.light,
+        primaryColor = Colors.black,
+        elevatedButtonColor = MaterialStateProperty.all(Colors.pink[400]),
+        secondaryColor = Colors.black54;
+
+  ThemeData getTheme() {
+    return ThemeData(
+      primarySwatch: Colors.blue,
+      brightness: brightness,
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        border: InputBorder.none,
+      ),
     );
   }
 }
@@ -30,10 +72,12 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     super.key,
+    required this.toggleTheme,
   });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+  final Function() toggleTheme;
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -43,11 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Professional ID Card'),
-        actions: const [
-           Icon(Icons.bubble_chart_outlined),
-           SizedBox(width: 10),
-           Icon(Icons.more_vert_rounded),
-           SizedBox(width: 15),
+        actions: [
+          const Icon(Icons.bubble_chart_outlined),
+          const SizedBox(width: 10),
+          InkWell(
+            onTap: widget.toggleTheme,
+            child: const Icon(Icons.more_vert_rounded),
+          ),
+          const SizedBox(width: 15),
         ],
         elevation: 0,
       ),
