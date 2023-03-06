@@ -323,7 +323,7 @@ class SkillWidget extends StatelessWidget {
                   BoxShadow(
                     color: color.withOpacity(0.4),
                     offset: const Offset(0, 1),
-                    blurRadius: 70,
+                    blurRadius: 40,
                   ),
                 ],
               )
