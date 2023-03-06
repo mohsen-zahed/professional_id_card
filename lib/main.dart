@@ -1,9 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:professional_id_card/constants/list.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:professional_id_card/menu_item.dart';
+import 'package:professional_id_card/translations/locale_keys.g.dart';
+import './menu_items.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('fa', ''),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -19,6 +35,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: themeMode == ThemeMode.dark
           ? ThemeConfig.dark().getTheme()
@@ -28,10 +47,8 @@ class _MyAppState extends State<MyApp> {
           setState(() {
             if (themeMode == ThemeMode.dark) {
               themeMode = ThemeMode.light;
-              print('object');
             } else {
               themeMode = ThemeMode.dark;
-              print('object');
             }
           });
         },
@@ -86,15 +103,37 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Professional ID Card'),
+        title: Text(LocaleKeys.app_name.tr()),
         actions: [
-          const Icon(Icons.bubble_chart_outlined),
-          const SizedBox(width: 10),
-          InkWell(
-            onTap: widget.toggleTheme,
-            child: const Icon(Icons.more_vert_rounded),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              width: 40,
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    if (context.locale == const Locale('fa')) {
+                      context.setLocale(const Locale('en'));
+                    } else {
+                      context.setLocale(const Locale('fa'));
+                    }
+                  });
+                },
+                child: const Icon(Icons.language_rounded),
+              ),
+            ),
           ),
-          const SizedBox(width: 15),
+          SizedBox(
+            width: 40,
+            child: InkWell(
+              onTap: widget.toggleTheme,
+              child: const Icon(Icons.bubble_chart_outlined),
+            ),
+          ),
+          const SizedBox(width: 20),
         ],
         elevation: 0,
       ),
@@ -118,29 +157,33 @@ class _MyHomePageState extends State<MyHomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Brice Seraphin',
-                        style: TextStyle(
+                      Text(
+                        LocaleKeys.user_name.tr(),
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        'Product & Print Designer',
-                        style: TextStyle(
+                      Text(
+                        LocaleKeys.user_occupation.tr(),
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          Icon(
+                        children: [
+                          const Icon(
                             Icons.location_on_outlined,
                             color: Colors.blueAccent,
                             size: 17,
                           ),
                           Text(
-                            'Paris, France',
-                            style: TextStyle(fontSize: 12),
+                            LocaleKeys.user_city.tr(),
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            ', ${LocaleKeys.user_country.tr()}',
+                            style: const TextStyle(fontSize: 12),
                           ),
                         ],
                       )
@@ -158,9 +201,9 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 30,
               ),
-              child: const Text(
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti assumenda id voluptas consectetur laudantium iure necessitatibus eum debitis dolore commodi sapiente doloremque, aperiam impedit, harum ipsam sint recusandae voluptatum mollitia?',
-                style: TextStyle(fontSize: 13),
+              child: Text(
+                LocaleKeys.user_description.tr(),
+                style: const TextStyle(fontSize: 13),
               ),
             ),
             const SizedBox(height: 15),
@@ -179,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
                 child: Row(
                   children: [
-                    const Text('Skills'),
+                    Text(LocaleKeys.skills.tr()),
                     !isCollapsed
                         ? const Icon(
                             Icons.keyboard_arrow_down_rounded,
@@ -224,26 +267,26 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Personal Information',
-                    style: TextStyle(
+                  Text(
+                    LocaleKeys.personal_information.tr(),
+                    style: const TextStyle(
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                   const SizedBox(height: 20),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: const TextField(
+                    child: TextField(
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.alternate_email_rounded,
                           color: Colors.grey,
                           size: 20,
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                        hintText: 'Email',
-                        hintStyle: TextStyle(fontSize: 14),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        hintText: LocaleKeys.email.tr(),
+                        hintStyle: const TextStyle(fontSize: 14),
                       ),
                       cursorColor: Colors.white,
                     ),
@@ -251,17 +294,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(height: 10),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: const TextField(
+                    child: TextField(
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.lock,
                           color: Colors.grey,
                           size: 20,
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                        hintText: 'Password',
-                        hintStyle: TextStyle(fontSize: 14),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        hintText: LocaleKeys.password.tr(),
+                        hintStyle: const TextStyle(fontSize: 14),
                       ),
                       cursorColor: Colors.white,
                     ),
@@ -279,7 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Colors.pink[400],
                         ),
                       ),
-                      child: Text('Save'),
+                      child: Text(LocaleKeys.save.tr()),
                     ),
                   )
                 ],
