@@ -1,0 +1,13 @@
+{
+    "app_name":"آیدی کارت حرفه ایی",
+    "user_name" : "امیر محسن زاهد",
+    "user_occupation" : "توسعه دهنده نرم افزار مبایل و دیزاینر",
+    "user_city" : "هرات",
+    "user_country" : "افغانستان",
+    "description" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti assumenda id voluptas consectetur laudantium iure necessitatibus eum debitis dolore commodi sapiente doloremque, aperiam impedit, harum ipsam sint recusandae voluptatum mollitia?",
+    "skills" : "مهارت ها",
+    "personal_information" : "اطلاعات شخصی",
+    "email" : "ایمیل",
+    "password" : "رمز عبور",
+    "save" : "ذخیره"
+}

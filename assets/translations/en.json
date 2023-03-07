@@ -1,0 +1,13 @@
+{
+    "app_name":"Professional ID Card",
+    "user_name" : "Amir Mohsen Zahed",
+    "user_occupation" : "Mobile App Developer & Designer",
+    "user_city" : "Herat",
+    "user_country" : "Afghanistan",
+    "description" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti assumenda id voluptas consectetur laudantium iure necessitatibus eum debitis dolore commodi sapiente doloremque, aperiam impedit, harum ipsam sint recusandae voluptatum mollitia?",
+    "skills" : "Skills",
+    "personal_information" : "Personal Information",
+    "email" : "Email",
+    "password" : "Password",
+    "save" : "Save"
+}

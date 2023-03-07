@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1088169707316",
+    "project_id": "professinalidcard",
+    "storage_bucket": "professinalidcard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088169707316:android:c9fc2448b0715a29af0761",
+        "android_client_info": {
+          "package_name": "com.example.professional_id_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1088169707316-b8m7qvbia2d4p4uk95n28tc56e2drtdg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.professional_id_card",
+            "certificate_hash": "2a696476ea38f2a32746cb1dfb6578c433373269"
+          }
+        },
+        {
+          "client_id": "1088169707316-pi4r0hjd7i6b6tbeob8s1bnim0quc815.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0TcC408JUccPYMKhs5IU7KPhOynSpM-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1088169707316-pi4r0hjd7i6b6tbeob8s1bnim0quc815.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
