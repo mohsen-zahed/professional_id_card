@@ -4,8 +4,8 @@ abstract class  LocaleKeys {
   static const app_name = 'app_name';
   static const user_name = 'user_name';
   static const user_occupation = 'user_occupation';
-  static const user_city = 'user_city';
-  static const user_country = 'user_country';
+  static const city = 'city';
+  static const country = 'country';
   static const description = 'description';
   static const skills = 'skills';
   static const personal_information = 'personal_information';

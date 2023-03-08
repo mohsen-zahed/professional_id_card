@@ -1,20 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:professional_id_card/constants/list.dart';
-import 'package:professional_id_card/translations/locale_keys.g.dart';
+import 'package:professional_id_card/constants/theme.dart';
+import 'package:professional_id_card/translations/codegen_loader.g.dart';
+import './translations/locale_keys.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
   runApp(
     EasyLocalization(
-      path: 'assets/translations',
-      supportedLocales: const [
-        Locale('en'),
-        Locale('fa'),
-      ],
+      supportedLocales: const [Locale('en'), Locale('fa')],
       startLocale: const Locale('en'),
+      path: "assets/translations",
+      assetLoader: const CodegenLoader(),
       child: const MyApp(),
     ),
   );
@@ -52,42 +51,9 @@ class _MyAppState extends State<MyApp> {
         },
         toggleLang: () {
           setState(() {
-            if (context.locale == const Locale('en')) {
-              context.setLocale(const Locale('fa'));
-            } else {
-              context.setLocale(const Locale('en'));
-            }
+            print('object');
           });
         },
-      ),
-    );
-  }
-}
-
-class ThemeConfig {
-  final Color primaryColor;
-  final Color secondaryColor;
-  final MaterialStateProperty elevatedButtonColor;
-  final Brightness brightness;
-  ThemeConfig.dark()
-      : brightness = Brightness.dark,
-        primaryColor = Colors.white,
-        elevatedButtonColor = MaterialStateProperty.all(Colors.pink[400]),
-        secondaryColor = Colors.white60;
-
-  ThemeConfig.light()
-      : brightness = Brightness.light,
-        primaryColor = Colors.black,
-        elevatedButtonColor = MaterialStateProperty.all(Colors.pink[400]),
-        secondaryColor = Colors.black54;
-
-  ThemeData getTheme() {
-    return ThemeData(
-      primarySwatch: Colors.blue,
-      brightness: brightness,
-      inputDecorationTheme: const InputDecorationTheme(
-        filled: true,
-        border: InputBorder.none,
       ),
     );
   }
@@ -114,13 +80,20 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(LocaleKeys.app_name.tr()),
         actions: [
-          InkWell(
-            onTap: widget.toggleLang,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                if (context.locale != const Locale('fa')) {
+                  context.setLocale(const Locale('fa'));
+                } else {
+                  context.setLocale(const Locale('en'));
+                }
+              });
+            },
             child: const Icon(Icons.language),
           ),
           const SizedBox(width: 10),
-          InkWell(
-            borderRadius: BorderRadius.circular(50),
+          GestureDetector(
             onTap: widget.toggleTheme,
             child: const Icon(Icons.bubble_chart_outlined),
           ),
@@ -169,11 +142,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             size: 17,
                           ),
                           Text(
-                            LocaleKeys.user_city.tr(),
+                            LocaleKeys.city.tr(),
                             style: const TextStyle(fontSize: 12),
                           ),
                           Text(
-                            ", ${LocaleKeys.user_country.tr()}",
+                            ", ${LocaleKeys.country.tr()}",
                             style: const TextStyle(fontSize: 12),
                           ),
                         ],
@@ -219,10 +192,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             Icons.keyboard_arrow_down_rounded,
                             size: 18,
                           )
-                        : const Icon(
-                            Icons.keyboard_arrow_right_rounded,
-                            size: 18,
-                          ),
+                        : isCollapsed && context.locale == const Locale('fa')
+                            ? const Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                size: 18,
+                              )
+                            : const Icon(
+                                Icons.keyboard_arrow_right_rounded,
+                                size: 18,
+                              ),
                   ],
                 ),
               ),
@@ -313,7 +291,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Colors.pink[400],
                         ),
                       ),
-                      child: const Text('Save'),
+                      child: Text('Save'),
                     ),
                   )
                 ],
@@ -357,7 +335,7 @@ class SkillWidget extends StatelessWidget {
                   BoxShadow(
                     color: color.withOpacity(0.4),
                     offset: const Offset(0, 1),
-                    blurRadius: 70,
+                    blurRadius: 40,
                   ),
                 ],
               )

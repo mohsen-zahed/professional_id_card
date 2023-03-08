@@ -21,7 +21,7 @@ class ThemeConfig {
     return ThemeData(
       primarySwatch: Colors.blue,
       brightness: brightness,
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: const InputDecorationTheme(
         filled: true,
         border: InputBorder.none,
       ),
